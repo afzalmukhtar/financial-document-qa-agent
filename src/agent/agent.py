@@ -5,11 +5,11 @@ import os
 from typing import Any
 
 import litellm
-from vectorstore import WeaviateStore
-from tools.retrieval import retrieval_tool, RETRIEVAL_TOOL_SCHEMA
-from tools.calculator import calculator_tool, CALCULATOR_TOOL_SCHEMA
-from tools.chart import chart_tool, CHART_TOOL_SCHEMA
 
+from tools.calculator import CALCULATOR_TOOL_SCHEMA, calculator_tool
+from tools.chart import CHART_TOOL_SCHEMA, chart_tool
+from tools.retrieval import RETRIEVAL_TOOL_SCHEMA, retrieval_tool
+from vectorstore import WeaviateStore
 
 SYSTEM_PROMPT = """You are an expert financial analyst assistant specializing in Adobe Inc.'s SEC 10-K filings (fiscal years 2022-2025).
 
@@ -89,12 +89,21 @@ class Agent:
             return f"Unknown tool: {name}"
         return handler(arguments)
 
-    def run(self, query: str) -> str:
-        """Run the agent loop for a user query. Returns the final text answer."""
+    def run(self, query: str, history: list[dict[str, str]] | None = None) -> str:
+        """Run the agent loop for a user query. Returns the final text answer.
+
+        Args:
+            query: The user's question.
+            history: Optional list of previous message dicts (role/content pairs).
+                     Empty by default — the caller is responsible for building
+                     and passing history.
+        """
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": query},
         ]
+        if history:
+            messages.extend(history)
+        messages.append({"role": "user", "content": query})
 
         for round_num in range(MAX_TOOL_ROUNDS):
             response = litellm.completion(
