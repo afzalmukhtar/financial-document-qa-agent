@@ -1,3 +1,3 @@
-from chunker.contextual_chunker import ContextualChunker
+from chunker.contextual_chunker import ChunkContext, ContextualChunker
 
-__all__ = ["ContextualChunker"]
+__all__ = ["ChunkContext", "ContextualChunker"]
