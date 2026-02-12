@@ -8,3 +8,12 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Environment
+.env
+
+# Interview challenge doc (not for submission)
+Interview-Round 1 Challenge.docx
+
+# IDE / tooling
+.mypy_cache/
