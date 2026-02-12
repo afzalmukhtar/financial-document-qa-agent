@@ -1,6 +1,6 @@
-# Adobe 10-K Financial Document Q&A
+# SEC 10-K Financial Document Q&A Agent
 
-An AI-powered agent that ingests Adobe's SEC 10-K filings and answers leadership questions about the company's performance, risks, and strategy, grounded entirely in the source documents.
+An AI-powered agent that ingests SEC 10-K annual filings and answers questions about a company's performance, risks, and strategy, grounded entirely in the source documents. Built as a prototype using Adobe's publicly available filings (FY 2022–2025) as the sample dataset.
 
 ---
 
@@ -109,7 +109,7 @@ Open `demo.ipynb` in Jupyter or VS Code and **Run All Cells**. The notebook will
 
 ## Assumptions
 
-- **Data Source:** No dataset was provided by Adobe. I used publicly available Adobe 10-K annual filings (fiscal years 2022–2025) from SEC EDGAR.
+- **Data Source:** No dataset was provided. I used publicly available Adobe 10-K annual filings (fiscal years 2022–2025) from SEC EDGAR.
 - **Scope:** The agent handles textual data and financial tables from the filings. It also generates charts/plots (bar, line, pie) when requested.
 - **Output Format:** Natural-language answers grounded in the source documents, with optional chart generation for visual queries.
 - **Model Interface:** [LiteLLM](https://github.com/BerriAI/litellm) abstracts the model layer, making the system LLM-agnostic. Swap the model by changing the `AZURE_OPENAI_DEPLOYMENT` env var; no code changes needed.
